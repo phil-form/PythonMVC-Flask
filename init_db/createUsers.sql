@@ -18,7 +18,7 @@ CREATE TABLE roles(
 CREATE TABLE usersroles(
     userid integer NOT NULL,
     roleid integer NOT NULL,
-    CONSTRAINT "contacts-roles_pkey" PRIMARY KEY (userid)
+    CONSTRAINT contacts-roles_pkey PRIMARY KEY (userid)
         INCLUDE(roleid),
     CONSTRAINT users_fkey FOREIGN KEY (userid)
         REFERENCES public.users (userid) MATCH SIMPLE,
