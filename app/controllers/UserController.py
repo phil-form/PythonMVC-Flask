@@ -8,37 +8,37 @@ from app.forms.UserUpdateForm import UserUpdateForm
 
 userService = UserService()
 
+
 class UserController:
     @app.route('/users', methods=["GET"])
-    def getUserList():
+    def getUserList(self):
         users = userService.findAll()
 
         return render_template('users/list.html', users=users)
 
     @app.route('/users/<int:userid>', methods=["GET"])
-    def getOneUser(userid: int):
+    def getOneUser(self, userid: int):
         user = userService.findOne(userid)
 
         return render_template('users/profile.html', user=user)
 
     @app.route('/users/register', methods=["GET", "POST"])
-    def register():
+    def register(self):
         form = UserRegisterForm(request.form)
 
         if request.method == 'POST':
             if form.validate():
                 user = userService.insert(form.getAsUser())
 
-                return redirect(url_for('getOneUser', userid = user.userid))
+                return redirect(url_for('getOneUser', userid=user.userid))
 
         return render_template('users/register.html', form=form)
 
     @app.route('/users/update/<int:userid>', methods=["GET", "POST"])
-    def userUpdate(userid: int):
+    def userUpdate(self, userid: int):
         form = UserUpdateForm(request.form)
-        
         sessionUserId = session.get('userid')
-        if sessionUserId == None or sessionUserId != userid:
+        if sessionUserId is None or sessionUserId != userid:
             return redirect(url_for('index'))
 
         user = userService.findOne(userid)
@@ -47,12 +47,12 @@ class UserController:
             if form.validate():
                 user = userService.update(userid, form.getAsUser(user))
 
-                return redirect(url_for('getOneUser', userid = user.userid))
+                return redirect(url_for('getOneUser', userid=user.userid))
 
-        return render_template('users/update.html', form=form, user=user)
+        return render_template('users/update.html', form=form, user=user, all_roles=userService.findAllRoles())
 
     @app.route('/login', methods=["GET", "POST"])
-    def login():
+    def login(self):
         form = UserLoginForm(request.form)
 
         if request.method == 'POST':
@@ -72,13 +72,13 @@ class UserController:
         return render_template('users/login.html', form=form, errors=form.errors)
 
     @app.route('/logout', methods=["GET"])
-    def logout():
+    def logout(self):
         session.pop('userid', None)
         session.pop('username', None)
         return redirect(url_for('index'))
 
     @app.route('/profile', methods=["GET"])
-    def profile():
+    def profile(self):
         userid = session.get('userid')
         if userid != None:
             return redirect(url_for('getOneUser', userid = userid))
