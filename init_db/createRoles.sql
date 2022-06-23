@@ -7,8 +7,8 @@ CREATE INDEX role_index ON roles(role_name);
 CREATE TABLE users_x_roles(
     role_id SERIAL NOT NULL,
     userid SERIAL NOT NULL,
-    FOREIGN KEY (role_id) REFERENCES roles(role_id),
-    FOREIGN KEY (userid) REFERENCES users(userid),
+    CONSTRAINT fk_role_user_rid FOREIGN KEY (role_id) REFERENCES roles(role_id),
+    CONSTRAINT fk_role_user_uid FOREIGN KEY (userid) REFERENCES users(userid),
     UNIQUE(role_id, userid)
 );
 
