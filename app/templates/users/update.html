@@ -5,8 +5,12 @@
 </h1>
 <form id="register" method="post">
     {{ form.csrf_token }}
-    <input type="text" name="useremail" placeholder="email" value="{{ '' if user == None else user.useremail }}" required>
-    <input type="text" name="userdescription" placeholder="description" value="{{ '' if user == None else user.userdescription }}" required>
+    <input type="text" name="useremail" placeholder="email" value="{{ '' if user == None else user.useremail }}" required> <br>
+
+    <input type="text" name="userdescription" placeholder="description" value="{{ '' if user == None else user.userdescription }}" required> <br>
+    
+    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+    <label for="vehicle1"> I have a bike</label><br>
 
     <input type="submit" value="Send">
 </form>
