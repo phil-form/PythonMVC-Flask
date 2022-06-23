@@ -1,6 +1,7 @@
 from sys import stderr
 from flask import redirect, render_template, request, session, url_for
 from app import app
+from app.decorators.authRequired import authRequired
 from app.forms.UserLoginForm import UserLoginForm
 from app.services.UserService import UserService
 from app.forms.UserRegisterForm import UserRegisterForm
@@ -34,21 +35,21 @@ class UserController:
         return render_template('users/register.html', form=form)
 
     @app.route('/users/update/<int:userid>', methods=["GET", "POST"])
+    @authRequired(level='ADMIN', orIsCurrentUser=True)
     def userUpdate(userid: int):
         form = UserUpdateForm(request.form)
         
-        sessionUserId = session.get('userid')
-        if sessionUserId == None or sessionUserId != userid:
-            return redirect(url_for('index'))
-
-        user = userService.findOne(userid)
+        # sessionUserId = session.get('userid')
+        # if sessionUserId == None or sessionUserId != userid:
+        #     return redirect(url_for('index'))
 
         if request.method == 'POST':
             if form.validate():
-                user = userService.update(userid, form.getAsUser(user))
+                user = userService.update(userid, form)
 
-                return redirect(url_for('getOneUser', userid = user.userid))
+                return redirect(url_for('getOneUser', userid = userid))
 
+        user = userService.findOne(userid)
         return render_template('users/update.html', form=form, user=user)
 
     @app.route('/login', methods=["GET", "POST"])
