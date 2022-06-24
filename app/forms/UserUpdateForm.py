@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField
+from wtforms import StringField, EmailField, BooleanField
 from wtforms.validators import DataRequired, EqualTo
 from app.models.User import User
 
@@ -9,6 +9,7 @@ class UserUpdateForm(FlaskForm):
     # confirm = StringField('confirm', validators=[DataRequired()])
     useremail = StringField('useremail', validators=[DataRequired()])
     userdescription = StringField('userdescription', validators=[DataRequired()])
+    isAdmin = BooleanField('isAdmin', validators=[])
 
     def getAsUser(self, user: User) -> User:
         user.useremail = self.useremail.data
