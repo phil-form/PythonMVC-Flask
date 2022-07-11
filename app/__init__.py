@@ -7,6 +7,7 @@ app.debug = True
 app.secret_key = "Rg@O<z7Jd$C%j;C,aKD?O`8fwC(1$'E~"
 
 toolBar = DebugToolbarExtension(app)
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 conn = psycopg2.connect(dbname='app', user='app', password='1234', host='127.0.0.1', port='5435')
 
