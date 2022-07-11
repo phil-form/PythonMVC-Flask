@@ -1,0 +1,14 @@
+{% extends "layout/layout.html" %}
+{% block body %}
+<h1>
+    {{ item.itemname }}
+</h1>
+<div>
+    <p>Id : </br> {{ item.itemid }}</p>
+    <p>Description : </br> {{ item.itemdescription }}</p>
+    <p>Create date : </br> {{ item.createdate }}</p>
+    <p>Update date : </br> {{ item.updatedate }}</p>
+    <p>Delete date : </br> {{ item.deletedate }}</p>
+    <p>Active : </br> {{ item.active }}</p>
+</div>
+{% endblock %}
