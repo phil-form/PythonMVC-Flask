@@ -7,14 +7,10 @@
     {{ form.csrf_token }}
     <input type="text" name="useremail" placeholder="email" value="{{ '' if user == None else user.useremail }}" required>
     <input type="text" name="userdescription" placeholder="description" value="{{ '' if user == None else user.userdescription }}" required>
-    {% for role in all_roles %}
-        <div>
-            <label for="{{ role.role_name }}">{{ role.role_name }}</label>
-            <input id="{{ role.role_name }}" type="checkbox" name="{{ role.role_name }}"
-                   placeholder="{{ role.role_name }}" value="{{ role.role_name }}"
-                   {% if user.has_role(role) %}checked{% endif %}>
-        </div>
-    {% endfor %}
+    {% if user.isAdmin() %}
+        <input type="checkbox" name="isAdmin" {% if user.isAdmin() %} checked {% endif %}>
+        <label for="isAdmin">Admin</label>
+    {% endif %}
     <input type="submit" value="Send">
 </form>
 {% endblock %}
