@@ -1,13 +1,15 @@
 from sys import stderr
-from flask import redirect, render_template, request, session, url_for
+
 from app import app
 from app.decorators.authRequired import authRequired
 from app.forms.UserLoginForm import UserLoginForm
-from app.services.UserService import UserService
 from app.forms.UserRegisterForm import UserRegisterForm
 from app.forms.UserUpdateForm import UserUpdateForm
+from app.services.UserService import UserService
+from flask import redirect, render_template, request, session, url_for
 
 userService = UserService()
+
 
 class UserController:
     @app.route('/users', methods=["GET"])

@@ -1,11 +1,12 @@
 from sys import stderr
 
-from flask import session
+import bcrypt
+from app import db
 from app.forms.UserUpdateForm import UserUpdateForm
 from app.models.User import User
 from app.services.IService import IService
-from app import db
-import bcrypt
+from flask import session
+
 
 class UserService():
     # def login(self, user: User):
