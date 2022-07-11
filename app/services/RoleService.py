@@ -35,15 +35,4 @@ class RoleService(IService):
         pass
 
     def delete(self, roleId: int):
-        with conn.cursor() as cur:
-            try:
-                cur.execute("DELETE FROM roles WHERE roleid = %s", 
-                    (roleId,))
-                conn.commit()
-
-                return roleId
-            except Exception as e:
-                print(e, file=stderr)
-                conn.rollback()
-
-            return None
+        pass
